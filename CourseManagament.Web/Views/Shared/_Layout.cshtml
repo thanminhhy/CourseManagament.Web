@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using CourseManagament.Web.Utils
+@using CourseManagament.Web.Utils
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,8 +24,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if(User.IsInRole(Role.Admin))
+                        {
+                            <li>@Html.ActionLink("Create Training Staff","CreateTrainingStaff","Admin")</li>
+                        }
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
