@@ -174,13 +174,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110200958376_AddAllTables.cs" />
-    <Compile Include="Migrations\202110200958376_AddAllTables.Designer.cs">
-      <DependentUpon>202110200958376_AddAllTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202110201501056_AddTrainingStaffTable.cs" />
-    <Compile Include="Migrations\202110201501056_AddTrainingStaffTable.Designer.cs">
-      <DependentUpon>202110201501056_AddTrainingStaffTable.cs</DependentUpon>
+    <Compile Include="Migrations\202110211137552_AddAllTables.cs" />
+    <Compile Include="Migrations\202110211137552_AddAllTables.Designer.cs">
+      <DependentUpon>202110211137552_AddAllTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -255,6 +251,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\CreateTrainingStaff.cshtml" />
+    <Content Include="Views\Admin\IndexStaff.cshtml" />
+    <Content Include="Views\Admin\EditStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,11 +272,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110200958376_AddAllTables.resx">
-      <DependentUpon>202110200958376_AddAllTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110201501056_AddTrainingStaffTable.resx">
-      <DependentUpon>202110201501056_AddTrainingStaffTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110211137552_AddAllTables.resx">
+      <DependentUpon>202110211137552_AddAllTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

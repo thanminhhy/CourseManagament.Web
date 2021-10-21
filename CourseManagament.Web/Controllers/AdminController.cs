@@ -38,9 +38,11 @@ namespace CourseManagament.Web.Controllers
             }
         }
         // GET: Admin
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult IndexStaff()
         {
-            return View();
+            var trainingstaff = _context.TrainingStaffs.ToList();
+            return View(trainingstaff);
         }
         [HttpGet]
         public ActionResult CreateTrainingStaff()
@@ -90,6 +92,48 @@ namespace CourseManagament.Web.Controllers
             {
                 ModelState.AddModelError("", error);
             }
+        }
+        [HttpGet]
+        public ActionResult DeleteStaff(string id)
+        {
+            var staffInUserDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var staffInTrainingStaffDb = _context.TrainingStaffs.SingleOrDefault(t => t.TrainingStaffId == id);
+            if(staffInUserDb == null || staffInTrainingStaffDb == null)
+            {
+                return HttpNotFound();
+            }
+            _context.Users.Remove(staffInUserDb);
+            _context.TrainingStaffs.Remove(staffInTrainingStaffDb);
+            _context.SaveChanges();
+            return RedirectToAction("IndexStaff", "Admin");
+        }
+        [HttpGet]
+        public ActionResult EditStaff(string id)
+        {
+            var staffInDb = _context.TrainingStaffs.SingleOrDefault(t => t.TrainingStaffId == id);
+            if(staffInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(staffInDb);
+        }
+        [HttpPost]
+        public ActionResult EditStaff(TrainingStaff trainingStaff)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trainingStaff);
+            }
+            var staffInDb = _context.TrainingStaffs.SingleOrDefault(t => t.TrainingStaffId == trainingStaff.TrainingStaffId);
+            if(staffInDb == null)
+            {
+                return HttpNotFound();
+            }
+            staffInDb.FullName = trainingStaff.FullName;
+            staffInDb.Address = trainingStaff.Address;
+            staffInDb.DateOfBirth = trainingStaff.DateOfBirth;
+            _context.SaveChanges();
+            return RedirectToAction("IndexStaff","Admin");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CourseManagament.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202110200958376_AddAllTables"; }
+            get { return "202110211137552_AddAllTables"; }
         }
         
         string IMigrationMetadata.Source

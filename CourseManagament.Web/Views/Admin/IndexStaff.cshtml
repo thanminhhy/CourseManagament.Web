@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CourseManagament.Web.Models.TrainingStaff>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Training Staff Managment</h2>
+<div class="form-group">
+    @Html.ActionLink("Create a new training staff", "CreateTrainingStaff", "Admin", new { @class = "btn btn-primary" })
+</div>
+@using (Html.BeginForm("IndexStaff", "Admin", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.TextBox("searchString", null, new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Full Name</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.FullName</th>
+                <td>@item.DateOfBirth.ToString("d")</td>
+                <td>@item.Address</td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteStaff", "Admin", new { id = item.TrainingStaffId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "EditStaff", "Admin", new { id = item.TrainingStaffId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Details", "Details", "Admin", new { id = item.TrainingStaffId }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

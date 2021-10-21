@@ -146,10 +146,24 @@ namespace CourseManagament.Web.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.TrainingStaffs",
+                c => new
+                    {
+                        TrainingStaffId = c.String(nullable: false, maxLength: 128),
+                        FullName = c.String(nullable: false, maxLength: 255),
+                        DateOfBirth = c.DateTime(nullable: false),
+                        Address = c.String(nullable: false, maxLength: 255),
+                    })
+                .PrimaryKey(t => t.TrainingStaffId)
+                .ForeignKey("dbo.AspNetUsers", t => t.TrainingStaffId)
+                .Index(t => t.TrainingStaffId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.TrainingStaffs", "TrainingStaffId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Classes", "TrainerId", "dbo.Trainers");
             DropForeignKey("dbo.Trainers", "TrainerId", "dbo.AspNetUsers");
@@ -161,6 +175,7 @@ namespace CourseManagament.Web.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Courses", "CourseCategoryId", "dbo.CourseCategories");
+            DropIndex("dbo.TrainingStaffs", new[] { "TrainingStaffId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Trainers", new[] { "TrainerId" });
             DropIndex("dbo.Trainees", new[] { "TraineeId" });
@@ -174,6 +189,7 @@ namespace CourseManagament.Web.Migrations
             DropIndex("dbo.Classes", new[] { "CourseId" });
             DropIndex("dbo.Classes", new[] { "TraineeId" });
             DropIndex("dbo.Classes", new[] { "TrainerId" });
+            DropTable("dbo.TrainingStaffs");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Trainers");
             DropTable("dbo.Trainees");

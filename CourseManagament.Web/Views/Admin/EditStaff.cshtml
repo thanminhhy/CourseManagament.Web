@@ -1,0 +1,45 @@
+﻿@model CourseManagament.Web.Models.TrainingStaff
+@{
+    ViewBag.Title = "EditStaff";
+}
+
+<h2>EditStaff</h2>
+@using (Html.BeginForm("EditStaff", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{ 
+    @Html.HiddenFor(m => m.TrainingStaffId) // solve the error 404 not found
+    @Html.AntiForgeryToken()
+<h4>Edit Training Staff Information.</h4>
+<hr />
+@Html.ValidationSummary("", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.DateOfBirth, "", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.DateOfBirth, "", //if already have required not null value in database, we no need to declare this one
+          new { @class = "text-danger" }
+        )
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" class="btn btn-default" value="Edit Training Staff Account" />
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
