@@ -30,6 +30,11 @@
                             <li>@Html.ActionLink("Manage TrainingStaff","IndexStaff","Admin")</li>
                             <li>@Html.ActionLink("Manage Trainer","IndexTrainer","Admin")</li>
                         }
+                        if(User.IsInRole(Role.TrainingStaff))
+                        {
+                            <li>@Html.ActionLink("Manage Trainee","IndexTrainee","TrainingStaffs")</li>
+                            <li>@Html.ActionLink("Manage Course","Index","TrainingStaffs")</li>
+                        }
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

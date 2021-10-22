@@ -38,7 +38,7 @@ namespace CourseManagament.Web.Controllers
         }
         // GET: Admin
         [HttpGet]
-        public ActionResult IndexStaff(TrainingStaffUserViewModels viewModel)
+        public ActionResult IndexStaff()
         {
             var trainingstaff = _context.TrainingStaffs.ToList();
             return View(trainingstaff);
@@ -142,7 +142,6 @@ namespace CourseManagament.Web.Controllers
         public ActionResult IndexTrainer()
         {
             var trainer = _context.Trainers.ToList();
-            var user = _context.Users.ToList();
             return View(trainer);
         }
         [HttpGet]
