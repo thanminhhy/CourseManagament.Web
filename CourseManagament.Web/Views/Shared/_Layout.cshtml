@@ -1,5 +1,4 @@
 ﻿@using CourseManagament.Web.Utils
-@using CourseManagament.Web.Utils
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +27,8 @@
                     {
                         if(User.IsInRole(Role.Admin))
                         {
-                            <li>@Html.ActionLink("ManageTrainingStaff","IndexStaff","Admin")</li>
+                            <li>@Html.ActionLink("Manage TrainingStaff","IndexStaff","Admin")</li>
+                            <li>@Html.ActionLink("Manage Trainer","IndexTrainer","Admin")</li>
                         }
                     }
                 </ul>

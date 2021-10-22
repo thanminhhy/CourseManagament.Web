@@ -174,9 +174,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110211137552_AddAllTables.cs" />
-    <Compile Include="Migrations\202110211137552_AddAllTables.Designer.cs">
-      <DependentUpon>202110211137552_AddAllTables.cs</DependentUpon>
+    <Compile Include="Migrations\202110221127244_AddAllTables.cs" />
+    <Compile Include="Migrations\202110221127244_AddAllTables.Designer.cs">
+      <DependentUpon>202110221127244_AddAllTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110221130341_Update.cs" />
+    <Compile Include="Migrations\202110221130341_Update.Designer.cs">
+      <DependentUpon>202110221130341_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110221135382_UpdateTables.cs" />
+    <Compile Include="Migrations\202110221135382_UpdateTables.Designer.cs">
+      <DependentUpon>202110221135382_UpdateTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -192,6 +200,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Role.cs" />
+    <Compile Include="ViewModels\TrainerUserViewModels.cs" />
     <Compile Include="ViewModels\TrainingStaffUserViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,9 @@
     <Content Include="Views\Admin\CreateTrainingStaff.cshtml" />
     <Content Include="Views\Admin\IndexStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
+    <Content Include="Views\Admin\IndexTrainer.cshtml" />
+    <Content Include="Views\Admin\CreateTrainer.cshtml" />
+    <Content Include="Views\Admin\EditTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -272,8 +284,14 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110211137552_AddAllTables.resx">
-      <DependentUpon>202110211137552_AddAllTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110221127244_AddAllTables.resx">
+      <DependentUpon>202110221127244_AddAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110221130341_Update.resx">
+      <DependentUpon>202110221130341_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110221135382_UpdateTables.resx">
+      <DependentUpon>202110221135382_UpdateTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

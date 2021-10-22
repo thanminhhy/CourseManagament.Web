@@ -23,7 +23,6 @@ namespace CourseManagament.Web.Controllers
         }
         public AdminController(ApplicationUserManager userManager)
         {
-            _context = new ApplicationDbContext();
             UserManager = userManager;
         }
         public ApplicationUserManager UserManager
@@ -39,7 +38,7 @@ namespace CourseManagament.Web.Controllers
         }
         // GET: Admin
         [HttpGet]
-        public ActionResult IndexStaff()
+        public ActionResult IndexStaff(TrainingStaffUserViewModels viewModel)
         {
             var trainingstaff = _context.TrainingStaffs.ToList();
             return View(trainingstaff);
@@ -57,10 +56,12 @@ namespace CourseManagament.Web.Controllers
             {
                 var user = new ApplicationUser { UserName = viewModel.RegisterViewModel.Email, Email = viewModel.RegisterViewModel.Email };
                 var staffId = user.Id;
+                var staffEmail = user.Email;
                 var newStaff = new TrainingStaff()
                 {
                     TrainingStaffId = staffId,
                     FullName = viewModel.Staff.FullName,
+                    Email = staffEmail,
                     DateOfBirth = viewModel.Staff.DateOfBirth,
                     Address = viewModel.Staff.Address
                 };
@@ -68,7 +69,7 @@ namespace CourseManagament.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(user.Id, Role.TrainingStaff);
+                    await UserManager.AddToRoleAsync(staffId, Role.TrainingStaff);
                     _context.TrainingStaffs.Add(newStaff);
                     _context.SaveChanges();
 
@@ -78,7 +79,7 @@ namespace CourseManagament.Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("IndexStaff", "Admin");
                 }
                 AddErrors(result);
             }
@@ -134,6 +135,96 @@ namespace CourseManagament.Web.Controllers
             staffInDb.DateOfBirth = trainingStaff.DateOfBirth;
             _context.SaveChanges();
             return RedirectToAction("IndexStaff","Admin");
+        }
+
+
+        [HttpGet]
+        public ActionResult IndexTrainer()
+        {
+            var trainer = _context.Trainers.ToList();
+            var user = _context.Users.ToList();
+            return View(trainer);
+        }
+        [HttpGet]
+        public ActionResult CreateTrainer()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateTrainer(TrainerUserViewModels viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = viewModel.RegisterViewModel.Email, Email = viewModel.RegisterViewModel.Email };
+                var trainerId = user.Id;
+                var trainerEmail = user.Email;
+                var newTrainer = new Trainer()
+                {
+                    TrainerId = trainerId,
+                    FullName = viewModel.Trainer.FullName,
+                    Email = trainerEmail,
+                    DateOfBirth = viewModel.Trainer.DateOfBirth,
+                    Address = viewModel.Trainer.Address,
+                    Speciality = viewModel.Trainer.Speciality
+                };
+                var result = await UserManager.CreateAsync(user, viewModel.RegisterViewModel.Password);
+
+                if (result.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(trainerId, Role.Trainer);
+                    _context.Trainers.Add(newTrainer);
+                    _context.SaveChanges();
+
+                   
+                    return RedirectToAction("IndexTrainer", "Admin");
+                }
+                AddErrors(result);
+            }
+            return View(viewModel);
+        }
+        [HttpGet]
+        public ActionResult DeleteTrainer(string id)
+        {
+            var trainerInUserDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var trainerInTrainerDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == id);
+            if (trainerInUserDb == null || trainerInTrainerDb == null)
+            {
+                return HttpNotFound();
+            }
+            _context.Users.Remove(trainerInUserDb);
+            _context.Trainers.Remove(trainerInTrainerDb);
+            _context.SaveChanges();
+            return RedirectToAction("IndexTrainer", "Admin");
+        }
+        [HttpGet]
+        public ActionResult EditTrainer(string id)
+        {
+            var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == id);
+            if (trainerInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(trainerInDb);
+        }
+        [HttpPost]
+        public ActionResult EditTrainer(Trainer trainer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trainer);
+            }
+            var trainerInDb = _context.Trainers.SingleOrDefault(t => t.TrainerId == trainer.TrainerId);
+            if (trainerInDb == null)
+            {
+                return HttpNotFound();
+            }
+            trainerInDb.FullName = trainer.FullName;
+            trainerInDb.Address = trainer.Address;
+            trainerInDb.DateOfBirth = trainer.DateOfBirth;
+            trainerInDb.Speciality = trainer.Speciality;
+            _context.SaveChanges();
+            return RedirectToAction("IndexTrainer", "Admin");
         }
     }
 }

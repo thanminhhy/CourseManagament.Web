@@ -152,6 +152,7 @@ namespace CourseManagament.Web.Migrations
                     {
                         TrainingStaffId = c.String(nullable: false, maxLength: 128),
                         FullName = c.String(nullable: false, maxLength: 255),
+                        Email = c.String(nullable: false),
                         DateOfBirth = c.DateTime(nullable: false),
                         Address = c.String(nullable: false, maxLength: 255),
                     })

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<CourseManagament.Web.Models.TrainingStaff>
+﻿@model IEnumerable<CourseManagament.Web.Models.Trainer>
 @{
-    ViewBag.Title = "IndexStaff";
+    ViewBag.Title = "IndexTrainer";
 }
 
-<h2>Training Staff Managment</h2>
+<h2>Trainer Management</h2>
 <div class="form-group">
-    @Html.ActionLink("Create a new training staff", "CreateTrainingStaff", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create a new trainer", "CreateTrainer", "Admin", new { @class = "btn btn-primary" })
 </div>
-@using (Html.BeginForm("IndexStaff", "Admin", FormMethod.Get))
+@using (Html.BeginForm("IndexTrainer", "Admin", FormMethod.Get))
 {
     <div class="form-group">
         @Html.TextBox("searchString", null, new { @class = "form-control" })
@@ -21,6 +21,7 @@
             <th scope="col">Email</th>
             <th scope="col">Date Of Birth</th>
             <th scope="col">Address</th>
+            <th scope="col">Speciality</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -32,9 +33,10 @@
                 <td>@item.Email</td>
                 <td>@item.DateOfBirth.ToString("d")</td>
                 <td>@item.Address</td>
+                <td>@item.Speciality</td>
                 <td>
-                    @Html.ActionLink("Delete", "DeleteStaff", "Admin", new { id = item.TrainingStaffId }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Edit", "EditStaff", "Admin", new { id = item.TrainingStaffId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteTrainer", "Admin", new { id = item.TrainerId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "EditTrainer", "Admin", new { id = item.TrainerId }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
