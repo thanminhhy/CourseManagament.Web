@@ -177,9 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110231024259_AddAllTables.cs" />
-    <Compile Include="Migrations\202110231024259_AddAllTables.Designer.cs">
-      <DependentUpon>202110231024259_AddAllTables.cs</DependentUpon>
+    <Compile Include="Migrations\202110231044125_Adding.cs" />
+    <Compile Include="Migrations\202110231044125_Adding.Designer.cs">
+      <DependentUpon>202110231044125_Adding.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -267,9 +267,9 @@
     <Content Include="Views\TrainingStaffs\IndexTrainee.cshtml" />
     <Content Include="Views\TrainingStaffs\EditTrainee.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\CourseCategories\Index.cshtml" />
-    <Content Include="Views\CourseCategories\Create.cshtml" />
-    <Content Include="Views\CourseCategories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Courses\CreateCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -290,8 +290,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110231024259_AddAllTables.resx">
-      <DependentUpon>202110231024259_AddAllTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110231044125_Adding.resx">
+      <DependentUpon>202110231044125_Adding.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

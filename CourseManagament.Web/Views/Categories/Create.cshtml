@@ -1,10 +1,10 @@
-﻿@model CourseManagament.Web.Models.CourseCategory
+﻿@model CourseManagament.Web.Models.Category
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create A New Course Category</h2>
-@using (Html.BeginForm("Create", "CourseCategories", FormMethod.Post))
+@using (Html.BeginForm("Create", "Categories", FormMethod.Post))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">

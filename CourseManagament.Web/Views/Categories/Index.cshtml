@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CourseManagament.Web.Models.CourseCategory>
+﻿@model IEnumerable<CourseManagament.Web.Models.Category>
 @{
     ViewBag.Title = "Index";
 }
@@ -7,7 +7,7 @@
 <div class="form-group">
     @Html.ActionLink("Create a new course category", "Create", "CourseCategories", new { @class = "btn btn-primary" })
 </div>
-@using (Html.BeginForm("Index", "CourseCategories", FormMethod.Get))
+@using (Html.BeginForm("Index", "Categories", FormMethod.Get))
 {
     <div class="form-group">
         @Html.TextBox("searchString", null, new { @class = "form-control" })

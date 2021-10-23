@@ -25,5 +25,12 @@
           new { @class = "form-control" }
         )
     </div>
+    <div class="form-group">
+        <label>Description</label>
+        @Html.TextBoxFor(m => m.Course.Description, "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Course.Description, "",
+             new { @class = "text-danger" }
+         )
+    </div>
     <button type="submit" class="btn btn-primary">Create</button>
 }

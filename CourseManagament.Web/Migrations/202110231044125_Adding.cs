@@ -3,7 +3,7 @@ namespace CourseManagament.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddAllTables : DbMigration
+    public partial class Adding : DbMigration
     {
         public override void Up()
         {
@@ -13,11 +13,8 @@ namespace CourseManagament.Web.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CategoryName = c.String(nullable: false, maxLength: 255),
-                        Course_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Courses", t => t.Course_Id)
-                .Index(t => t.Course_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Courses",
@@ -33,8 +30,10 @@ namespace CourseManagament.Web.Migrations
                         CourseTrainer_TrainerId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .ForeignKey("dbo.CourseTrainers", t => new { t.CourseTrainer_CourseId, t.CourseTrainer_TrainerId })
+                .Index(t => t.CategoryId)
                 .Index(t => t.UserId)
                 .Index(t => new { t.CourseTrainer_CourseId, t.CourseTrainer_TrainerId });
             
@@ -177,7 +176,7 @@ namespace CourseManagament.Web.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Categories", "Course_Id", "dbo.Courses");
+            DropForeignKey("dbo.Courses", "CategoryId", "dbo.Categories");
             DropIndex("dbo.TrainingStaffs", new[] { "TrainingStaffId" });
             DropIndex("dbo.Trainees", new[] { "TraineeId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -190,7 +189,7 @@ namespace CourseManagament.Web.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Courses", new[] { "CourseTrainer_CourseId", "CourseTrainer_TrainerId" });
             DropIndex("dbo.Courses", new[] { "UserId" });
-            DropIndex("dbo.Categories", new[] { "Course_Id" });
+            DropIndex("dbo.Courses", new[] { "CategoryId" });
             DropTable("dbo.TrainingStaffs");
             DropTable("dbo.Trainees");
             DropTable("dbo.AspNetRoles");

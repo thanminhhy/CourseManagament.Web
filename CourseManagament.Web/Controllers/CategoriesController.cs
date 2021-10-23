@@ -39,7 +39,7 @@ namespace CourseManagament.Web.Controllers
             _context.courseCategories.Add(newCategory);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "CourseCategories");
+            return RedirectToAction("Index", "Categories");
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -52,7 +52,7 @@ namespace CourseManagament.Web.Controllers
             _context.courseCategories.Remove(categoriesInDb);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "CourseCategories");
+            return RedirectToAction("Index", "Categories");
         }
         [HttpGet]
         public ActionResult Edit(int id)
@@ -79,7 +79,7 @@ namespace CourseManagament.Web.Controllers
             categoriesInDb.CategoryName = courseCategory.CategoryName;
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "CourseCategories");
+            return RedirectToAction("Index", "Categories");
         }
     }
 }
