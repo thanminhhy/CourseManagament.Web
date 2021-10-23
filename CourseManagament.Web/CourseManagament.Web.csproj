@@ -169,35 +169,28 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TrainingStaffsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110221127244_AddAllTables.cs" />
-    <Compile Include="Migrations\202110221127244_AddAllTables.Designer.cs">
-      <DependentUpon>202110221127244_AddAllTables.cs</DependentUpon>
+    <Compile Include="Migrations\202110230350038_AddAllTables.cs" />
+    <Compile Include="Migrations\202110230350038_AddAllTables.Designer.cs">
+      <DependentUpon>202110230350038_AddAllTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110221130341_Update.cs" />
-    <Compile Include="Migrations\202110221130341_Update.Designer.cs">
-      <DependentUpon>202110221130341_Update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202110221135382_UpdateTables.cs" />
-    <Compile Include="Migrations\202110221135382_UpdateTables.Designer.cs">
-      <DependentUpon>202110221135382_UpdateTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202110230301519_UpdateTables1.cs" />
-    <Compile Include="Migrations\202110230301519_UpdateTables1.Designer.cs">
-      <DependentUpon>202110230301519_UpdateTables1.cs</DependentUpon>
+    <Compile Include="Migrations\202110230351300_AddCourseTrainerTable.cs" />
+    <Compile Include="Migrations\202110230351300_AddCourseTrainerTable.Designer.cs">
+      <DependentUpon>202110230351300_AddCourseTrainerTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCategory.cs" />
+    <Compile Include="Models\CourseTrainer.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Trainee.cs" />
     <Compile Include="Models\Trainer.cs" />
@@ -205,6 +198,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Role.cs" />
+    <Compile Include="ViewModels\CourseTrainerViewModels.cs" />
     <Compile Include="ViewModels\TraineeUserViewModels.cs" />
     <Compile Include="ViewModels\TrainerUserViewModels.cs" />
     <Compile Include="ViewModels\TrainingStaffUserViewModels.cs" />
@@ -274,9 +268,11 @@
     <Content Include="Views\TrainingStaffs\CreateTrainee.cshtml" />
     <Content Include="Views\TrainingStaffs\IndexTrainee.cshtml" />
     <Content Include="Views\TrainingStaffs\EditTrainee.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Classes\" />
     <Folder Include="Views\Trainee\" />
   </ItemGroup>
   <ItemGroup>
@@ -293,17 +289,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110221127244_AddAllTables.resx">
-      <DependentUpon>202110221127244_AddAllTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110230350038_AddAllTables.resx">
+      <DependentUpon>202110230350038_AddAllTables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110221130341_Update.resx">
-      <DependentUpon>202110221130341_Update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110221135382_UpdateTables.resx">
-      <DependentUpon>202110221135382_UpdateTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110230301519_UpdateTables1.resx">
-      <DependentUpon>202110230301519_UpdateTables1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110230351300_AddCourseTrainerTable.resx">
+      <DependentUpon>202110230351300_AddCourseTrainerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

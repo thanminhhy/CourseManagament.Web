@@ -7,13 +7,13 @@ namespace CourseManagament.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Update : IMigrationMetadata
+    public sealed partial class AddAllTables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Update));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAllTables));
         
         string IMigrationMetadata.Id
         {
-            get { return "202110221130341_Update"; }
+            get { return "202110230350038_AddAllTables"; }
         }
         
         string IMigrationMetadata.Source
