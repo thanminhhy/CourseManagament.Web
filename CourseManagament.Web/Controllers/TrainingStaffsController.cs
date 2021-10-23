@@ -44,10 +44,16 @@ namespace CourseManagament.Web.Controllers
             }
         }
         // GET: TrainingStaff
-        public ActionResult IndexTrainee()
+        public ActionResult IndexTrainee(string searchString)
         {
-            var trainee = _context.Trainees.ToList();
-            return View(trainee);
+            var trainees = _context.Trainees.ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                trainees = trainees
+                    .Where(t => t.FullName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+            }
+            return View(trainees);
         }
         [HttpGet]
         public ActionResult CreateTrainee()
