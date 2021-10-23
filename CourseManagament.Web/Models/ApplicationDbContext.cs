@@ -11,6 +11,7 @@ namespace CourseManagament.Web.Models
         public DbSet<Trainee> Trainees { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<TrainingStaff> TrainingStaffs { get; set; }
+        public DbSet<CourseTrainer> CourseTrainers { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

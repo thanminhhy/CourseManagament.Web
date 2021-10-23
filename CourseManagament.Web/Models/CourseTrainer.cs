@@ -10,12 +10,12 @@ namespace CourseManagament.Web.Models
     public class CourseTrainer
     {
         [Key, Column(Order = 1)]
-        [ForeignKey("Courses")]
+        [ForeignKey("Course")]
         public int CourseId {get;set;}
-        public List<Course> Courses { get; set; }
+        public Course Course { get; set; }
         [Key, Column(Order = 2)]
-        [ForeignKey("Trainers")]
+        [ForeignKey("Trainer")]
         public string TrainerId { get; set; }
-        public List<Trainer> Trainers { get; set; }
+        public Trainer Trainer { get; set; }
     }
 }

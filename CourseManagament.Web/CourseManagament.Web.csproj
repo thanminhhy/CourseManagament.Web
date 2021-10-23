@@ -193,6 +193,10 @@
     <Compile Include="Migrations\202110231123172_UpdateCourseTable2.Designer.cs">
       <DependentUpon>202110231123172_UpdateCourseTable2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110231457533_AddCourseTrainersTable.cs" />
+    <Compile Include="Migrations\202110231457533_AddCourseTrainersTable.Designer.cs">
+      <DependentUpon>202110231457533_AddCourseTrainersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -314,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110231123172_UpdateCourseTable2.resx">
       <DependentUpon>202110231123172_UpdateCourseTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110231457533_AddCourseTrainersTable.resx">
+      <DependentUpon>202110231457533_AddCourseTrainersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
