@@ -14,12 +14,11 @@ namespace CourseManagament.Web.Models
         [Required]
         [StringLength(255)]
         public string CourseName { get; set; }
-        [ForeignKey("Categories")]
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        public Category Categories { get; set; }
+        public Category Category { get; set; }
         [Required]
         public DateTime DateTime { get; set; }
-        public string Description { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }

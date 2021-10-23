@@ -181,6 +181,18 @@
     <Compile Include="Migrations\202110231044125_Adding.Designer.cs">
       <DependentUpon>202110231044125_Adding.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110231116312_UpdateData.cs" />
+    <Compile Include="Migrations\202110231116312_UpdateData.Designer.cs">
+      <DependentUpon>202110231116312_UpdateData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110231117486_UpdateCoursetable.cs" />
+    <Compile Include="Migrations\202110231117486_UpdateCoursetable.Designer.cs">
+      <DependentUpon>202110231117486_UpdateCoursetable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110231123172_UpdateCourseTable2.cs" />
+    <Compile Include="Migrations\202110231123172_UpdateCourseTable2.Designer.cs">
+      <DependentUpon>202110231123172_UpdateCourseTable2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -271,6 +283,7 @@
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Courses\CreateCourse.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -292,6 +305,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202110231044125_Adding.resx">
       <DependentUpon>202110231044125_Adding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110231116312_UpdateData.resx">
+      <DependentUpon>202110231116312_UpdateData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110231117486_UpdateCoursetable.resx">
+      <DependentUpon>202110231117486_UpdateCoursetable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110231123172_UpdateCourseTable2.resx">
+      <DependentUpon>202110231123172_UpdateCourseTable2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
