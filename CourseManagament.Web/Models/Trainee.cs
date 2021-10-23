@@ -18,7 +18,7 @@ namespace CourseManagament.Web.Models
         public string FullName { get; set; }
         public string Email { get; set; }
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        public int Age { get; set; }
         [Required]
         [StringLength(255)]
         public string Address { get; set; }

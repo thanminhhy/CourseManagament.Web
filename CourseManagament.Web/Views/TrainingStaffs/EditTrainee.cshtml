@@ -18,10 +18,10 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Age, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.EditorFor(m => m.DateOfBirth, "", new { @class = "form-control", type = "date" })
-            @Html.ValidationMessageFor(m => m.DateOfBirth, "", //if already have required not null value in database, we no need to declare this one
+            @Html.TextBoxFor(m => m.Age, new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.Age, "", //if already have required not null value in database, we no need to declare this one
               new { @class = "text-danger" }
             )
         </div>

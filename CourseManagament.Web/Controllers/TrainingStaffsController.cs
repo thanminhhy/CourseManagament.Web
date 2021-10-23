@@ -50,7 +50,8 @@ namespace CourseManagament.Web.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 trainees = trainees
-                    .Where(t => t.FullName.ToLower().Contains(searchString.ToLower()))
+                    .Where(t => t.FullName.ToLower().Contains(searchString.ToLower())
+                    || t.Age.ToString().Contains(searchString.ToLower()))
                     .ToList();
             }
             return View(trainees);
@@ -74,7 +75,7 @@ namespace CourseManagament.Web.Controllers
                     TraineeId = traineeId,
                     FullName = viewModel.Trainee.FullName,
                     Email = traineeEmail,
-                    DateOfBirth = viewModel.Trainee.DateOfBirth,
+                    Age = viewModel.Trainee.Age,
                     Address = viewModel.Trainee.Address,
                     Education = viewModel.Trainee.Education
                 };
@@ -138,7 +139,7 @@ namespace CourseManagament.Web.Controllers
                 return HttpNotFound();
             }
             traineeInDb.FullName = trainee.FullName;
-            traineeInDb.DateOfBirth = trainee.DateOfBirth;
+            traineeInDb.Age = trainee.Age;
             traineeInDb.Address = trainee.Address;
             traineeInDb.Education = trainee.Education;
             _context.SaveChanges();
