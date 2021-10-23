@@ -14,9 +14,9 @@ namespace CourseManagament.Web.Models
         [Required]
         [StringLength(255)]
         public string CourseName { get; set; }
-        [ForeignKey("CourseCategory")]
-        public int CourseCategoryId { get; set; }
-        public CourseCategory CourseCategory { get; set; }
+        [ForeignKey("Categories")]
+        public int CategoryId { get; set; }
+        public List<Category> Categories { get; set; }
         [Required]
         public DateTime DateTime { get; set; }
         public string Description { get; set; }

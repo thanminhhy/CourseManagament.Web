@@ -6,7 +6,7 @@ using System.Web;
 
 namespace CourseManagament.Web.Models
 {
-    public class CourseCategory
+    public class Category
     {
         [Key]
         public int Id { get; set; }

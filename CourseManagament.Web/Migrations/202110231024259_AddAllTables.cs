@@ -8,13 +8,16 @@ namespace CourseManagament.Web.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.CourseCategories",
+                "dbo.Categories",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CategoryName = c.String(nullable: false, maxLength: 255),
+                        Course_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Courses", t => t.Course_Id)
+                .Index(t => t.Course_Id);
             
             CreateTable(
                 "dbo.Courses",
@@ -22,16 +25,18 @@ namespace CourseManagament.Web.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CourseName = c.String(nullable: false, maxLength: 255),
-                        CourseCategoryId = c.Int(nullable: false),
+                        CategoryId = c.Int(nullable: false),
                         DateTime = c.DateTime(nullable: false),
                         Description = c.String(),
                         UserId = c.String(maxLength: 128),
+                        CourseTrainer_CourseId = c.Int(),
+                        CourseTrainer_TrainerId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CourseCategories", t => t.CourseCategoryId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.CourseCategoryId)
-                .Index(t => t.UserId);
+                .ForeignKey("dbo.CourseTrainers", t => new { t.CourseTrainer_CourseId, t.CourseTrainer_TrainerId })
+                .Index(t => t.UserId)
+                .Index(t => new { t.CourseTrainer_CourseId, t.CourseTrainer_TrainerId });
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -92,6 +97,34 @@ namespace CourseManagament.Web.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.CourseTrainers",
+                c => new
+                    {
+                        CourseId = c.Int(nullable: false),
+                        TrainerId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.CourseId, t.TrainerId });
+            
+            CreateTable(
+                "dbo.Trainers",
+                c => new
+                    {
+                        TrainerId = c.String(nullable: false, maxLength: 128),
+                        FullName = c.String(nullable: false, maxLength: 255),
+                        Email = c.String(),
+                        DateOfBirth = c.DateTime(nullable: false),
+                        Address = c.String(nullable: false, maxLength: 255),
+                        Speciality = c.String(nullable: false),
+                        CourseTrainer_CourseId = c.Int(),
+                        CourseTrainer_TrainerId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.TrainerId)
+                .ForeignKey("dbo.AspNetUsers", t => t.TrainerId)
+                .ForeignKey("dbo.CourseTrainers", t => new { t.CourseTrainer_CourseId, t.CourseTrainer_TrainerId })
+                .Index(t => t.TrainerId)
+                .Index(t => new { t.CourseTrainer_CourseId, t.CourseTrainer_TrainerId });
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -117,21 +150,6 @@ namespace CourseManagament.Web.Migrations
                 .Index(t => t.TraineeId);
             
             CreateTable(
-                "dbo.Trainers",
-                c => new
-                    {
-                        TrainerId = c.String(nullable: false, maxLength: 128),
-                        FullName = c.String(nullable: false, maxLength: 255),
-                        Email = c.String(),
-                        DateOfBirth = c.DateTime(nullable: false),
-                        Address = c.String(nullable: false, maxLength: 255),
-                        Speciality = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.TrainerId)
-                .ForeignKey("dbo.AspNetUsers", t => t.TrainerId)
-                .Index(t => t.TrainerId);
-            
-            CreateTable(
                 "dbo.TrainingStaffs",
                 c => new
                     {
@@ -150,35 +168,40 @@ namespace CourseManagament.Web.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.TrainingStaffs", "TrainingStaffId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Trainers", "TrainerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Trainees", "TraineeId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Trainers", new[] { "CourseTrainer_CourseId", "CourseTrainer_TrainerId" }, "dbo.CourseTrainers");
+            DropForeignKey("dbo.Trainers", "TrainerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Courses", new[] { "CourseTrainer_CourseId", "CourseTrainer_TrainerId" }, "dbo.CourseTrainers");
             DropForeignKey("dbo.Courses", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Courses", "CourseCategoryId", "dbo.CourseCategories");
+            DropForeignKey("dbo.Categories", "Course_Id", "dbo.Courses");
             DropIndex("dbo.TrainingStaffs", new[] { "TrainingStaffId" });
-            DropIndex("dbo.Trainers", new[] { "TrainerId" });
             DropIndex("dbo.Trainees", new[] { "TraineeId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Trainers", new[] { "CourseTrainer_CourseId", "CourseTrainer_TrainerId" });
+            DropIndex("dbo.Trainers", new[] { "TrainerId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Courses", new[] { "CourseTrainer_CourseId", "CourseTrainer_TrainerId" });
             DropIndex("dbo.Courses", new[] { "UserId" });
-            DropIndex("dbo.Courses", new[] { "CourseCategoryId" });
+            DropIndex("dbo.Categories", new[] { "Course_Id" });
             DropTable("dbo.TrainingStaffs");
-            DropTable("dbo.Trainers");
             DropTable("dbo.Trainees");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Trainers");
+            DropTable("dbo.CourseTrainers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Courses");
-            DropTable("dbo.CourseCategories");
+            DropTable("dbo.Categories");
         }
     }
 }

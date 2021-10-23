@@ -6,7 +6,7 @@
 <h2>Edit Trainer Information</h2>
 @using (Html.BeginForm("EditTrainer", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.HiddenFor(m => m.TrainerId) // solve the error 404 not found
+    @Html.HiddenFor(m => m.TrainerId) // solve the error HTTP Error 404.0 - Not Found
     @Html.AntiForgeryToken()
     <h4>Edit Trainer Information.</h4>
     <hr />
