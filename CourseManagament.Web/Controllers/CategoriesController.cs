@@ -15,9 +15,15 @@ namespace CourseManagament.Web.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: CourseCategories
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var categories = _context.courseCategories.ToList();
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                categories = categories
+                    .Where(t => t.CategoryName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+            }
             return View(categories);
         }
         [HttpGet]

@@ -21,13 +21,20 @@ namespace CourseManagament.Web.Controllers
 
         // GET: Courses
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var courses = _context.Courses
                 .Include(t => t.Category) // use this include type must have using System.Data.Entity;
                 .ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                courses = courses
+                    .Where(t => t.CourseName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+            }
             return View(courses);
         }
+
         [HttpGet]
         public ActionResult CreateCourse()
         {
@@ -38,6 +45,8 @@ namespace CourseManagament.Web.Controllers
             };
             return View(viewModel);
         }
+
+        [HttpPost]
         public ActionResult CreateCourse(CourseCategoriesViewModels model)
         {
             if (!ModelState.IsValid)
@@ -53,13 +62,14 @@ namespace CourseManagament.Web.Controllers
             {
                 CourseName = model.Course.CourseName,
                 DateTime = model.Course.DateTime,
-                CategoryId = model.Course.CategoryId
+                CategoryId = model.Course.CategoryId,
             };
             _context.Courses.Add(newCourse);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Courses");
         }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -73,6 +83,7 @@ namespace CourseManagament.Web.Controllers
 
             return RedirectToAction("Index", "Courses");
         }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -88,6 +99,7 @@ namespace CourseManagament.Web.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
         public ActionResult Edit(CourseCategoriesViewModels model)
         {
@@ -112,8 +124,9 @@ namespace CourseManagament.Web.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Courses");
         }
+
         [HttpGet]
-        public ActionResult CourseTrainer()
+        public ActionResult CourseTrainer(string searchString)
         {
             List<CoursetTrainersViewModels> viewModels = _context.CourseTrainers
                 .GroupBy(i => i.Course)
@@ -123,8 +136,16 @@ namespace CourseManagament.Web.Controllers
                     Trainers = res.Select(t => t.Trainer).ToList()
                 })
                 .ToList();
+
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                viewModels = viewModels
+                    .Where(t => t.Course.CourseName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+            }
             return View(viewModels);
         }
+
         [HttpGet]
         public ActionResult AddTrainer()
         {
@@ -139,13 +160,16 @@ namespace CourseManagament.Web.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
         public ActionResult AddTrainer(TrainerCoursesViewModels model)
         {
             var viewModel = new TrainerCoursesViewModels()
             {
-                Courses = _context.Courses.ToList(),
-                Trainers = _context.Trainers.ToList(),
+                Courses = _context.Courses
+                .ToList(),
+                Trainers = _context.Trainers
+                .ToList(),
             };
             if (!ModelState.IsValid)
             {
@@ -166,6 +190,7 @@ namespace CourseManagament.Web.Controllers
 
             return RedirectToAction("CourseTrainer", "Courses");
         }
+
         [HttpGet]
         public ActionResult RemoveTrainer()
         {
@@ -185,11 +210,12 @@ namespace CourseManagament.Web.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
         public ActionResult RemoveTrainer(TrainerCoursesViewModels model)
         {
             var trainers = _context.CourseTrainers
-                .SingleOrDefault(t => t.CourseId == model.CourseId && t.TrainerId == model.TrainerId);
+                .SingleOrDefault(t => t.CourseId == model.CourseId);
             if (trainers == null)
             {
                 return HttpNotFound();
@@ -200,7 +226,7 @@ namespace CourseManagament.Web.Controllers
             return RedirectToAction("CourseTrainer", "Courses");
         }
         [HttpGet]
-        public ActionResult CourseTrainee()
+        public ActionResult CourseTrainee(string searchString)
         {
             List<CourseTraineesViewModels> viewModels = _context.TraineeCourses
                 .GroupBy(i => i.Course)
@@ -211,8 +237,15 @@ namespace CourseManagament.Web.Controllers
                 })
                 .ToList();
             
+                if(!String.IsNullOrEmpty(searchString))
+                {
+                viewModels = viewModels
+                .Where(t => t.Course.CourseName.ToLower().Contains(searchString.ToLower()))
+                .ToList();
+                }
             return View(viewModels);
         }
+
         [HttpGet]
         public ActionResult AddTrainee()
         {
@@ -227,13 +260,16 @@ namespace CourseManagament.Web.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
         public ActionResult AddTrainee(TraineeCouresesViewModels model)
         {
             var viewModel = new TraineeCouresesViewModels()
             {
-                Courses = _context.Courses.ToList(),
-                Trainees = _context.Trainees.ToList(),
+                Courses = _context.Courses
+                .ToList(),
+                Trainees = _context.Trainees
+                .ToList(),
             };
             if (!ModelState.IsValid)
             {
@@ -254,6 +290,7 @@ namespace CourseManagament.Web.Controllers
 
             return RedirectToAction("CourseTrainee", "Courses");
         }
+
         [HttpGet]
         public ActionResult RemoveTrainee()
         {
@@ -273,6 +310,7 @@ namespace CourseManagament.Web.Controllers
             };
             return View(viewModel);
         }
+
         [HttpPost]
         public ActionResult RemoveTrainee(TraineeCouresesViewModels model)
         {

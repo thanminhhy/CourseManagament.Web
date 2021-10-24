@@ -10,6 +10,7 @@
 @using (Html.BeginForm("Index", "Categories", FormMethod.Get))
 {
     <div class="form-group">
+        <label>Search Category</label>
         @Html.TextBox("searchString", null, new { @class = "form-control" })
         <button type="submit" class="btn btn-primary">Search</button>
     </div>

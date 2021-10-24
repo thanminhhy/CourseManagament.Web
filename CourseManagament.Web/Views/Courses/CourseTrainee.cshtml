@@ -11,12 +11,14 @@
         @Html.ActionLink("Back To Course Management", "Index", "Courses", new { @class = "btn btn-default" })
     </td>
 </div>
-<form>
-    <div class=" form-group">
-        <input type="text" class=" form-control" placeholder="Search Trainers By Enrolled Course" />
+@using (Html.BeginForm("CourseTrainee", "Courses", FormMethod.Get))
+{
+    <div class="form-group">
+        <label>Search Trainees by Enrolled CourseName</label>
+        @Html.TextBox("searchString", null, new { @class = "form-control"})
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
+}
 <table class="table table-striped">
     <thead>
         <tr>
