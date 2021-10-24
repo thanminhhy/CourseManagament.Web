@@ -111,6 +111,7 @@ namespace CourseManagament.Web.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Courses");
         }
+        [HttpGet]
         public ActionResult CourseTrainer()
         {
             List<CoursetTrainersViewModels> viewModels = _context.CourseTrainers
@@ -128,21 +129,30 @@ namespace CourseManagament.Web.Controllers
         {
             var viewModel = new TrainerCoursesViewModels()
             {
-                Courses = _context.Courses.ToList(),
-                Trainers = _context.Trainers.ToList(),
+                Courses = _context.Courses
+                .Distinct()
+                .ToList(),
+                Trainers = _context.Trainers
+                .Distinct()
+                .ToList(),
             };
             return View(viewModel);
         }
         [HttpPost]
         public ActionResult AddTrainer(TrainerCoursesViewModels model)
         {
-            if(!ModelState.IsValid)
+            var viewModel = new TrainerCoursesViewModels()
             {
-                var viewModel = new TrainerCoursesViewModels()
-                {
-                    Courses = _context.Courses.ToList(),
-                    Trainers = _context.Trainers.ToList(),
-                };
+                Courses = _context.Courses.ToList(),
+                Trainers = _context.Trainers.ToList(),
+            };
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            Boolean ExistTrainer = _context.CourseTrainers.Any(i => i.TrainerId == model.TrainerId && i.CourseId == model.CourseId);
+            if (ExistTrainer == true)
+            {
                 return View(viewModel);
             }
             var newmodel = new TrainerCourse()
@@ -173,6 +183,108 @@ namespace CourseManagament.Web.Controllers
                 Trainers = trainers
             };
             return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult RemoveTrainer(TrainerCoursesViewModels model)
+        {
+            var trainers = _context.CourseTrainers
+                .SingleOrDefault(t => t.CourseId == model.CourseId && t.TrainerId == model.TrainerId);
+            if (trainers == null)
+            {
+                return HttpNotFound();
+            }
+            _context.CourseTrainers.Remove(trainers);
+            _context.SaveChanges();
+
+            return RedirectToAction("CourseTrainer", "Courses");
+        }
+        [HttpGet]
+        public ActionResult CourseTrainee()
+        {
+            List<CourseTraineesViewModels> viewModels = _context.TraineeCourses
+                .GroupBy(i => i.Course)
+                .Select(res => new CourseTraineesViewModels
+                {
+                    Course = res.Key,
+                    Trainees = res.Select(t => t.Trainee).ToList(),
+                })
+                .ToList();
+            
+            return View(viewModels);
+        }
+        [HttpGet]
+        public ActionResult AddTrainee()
+        {
+            var viewModel = new TraineeCouresesViewModels()
+            {
+                Courses = _context.Courses
+                .Distinct()
+                .ToList(),
+                Trainees = _context.Trainees
+                .Distinct()
+                .ToList(),
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult AddTrainee(TraineeCouresesViewModels model)
+        {
+            var viewModel = new TraineeCouresesViewModels()
+            {
+                Courses = _context.Courses.ToList(),
+                Trainees = _context.Trainees.ToList(),
+            };
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            Boolean ExistTrainee = _context.TraineeCourses.Any(i => i.TraineeId == model.TraineeId && i.CourseId == model.Courseid);
+            if(ExistTrainee == true)
+            {
+                return View(viewModel);
+            }
+            var newTrainee = new TraineeCourse()
+            {
+                TraineeId = model.TraineeId,
+                CourseId = model.Courseid
+            };
+            _context.TraineeCourses.Add(newTrainee);
+            _context.SaveChanges();
+
+            return RedirectToAction("CourseTrainee", "Courses");
+        }
+        [HttpGet]
+        public ActionResult RemoveTrainee()
+        {
+            var trainees = _context.TraineeCourses
+                .Select(t => t.Trainee)
+                .Distinct()
+                .ToList();
+            var courses = _context.TraineeCourses
+                .Select(t => t.Course)
+                .Distinct()
+                .ToList();
+
+            var viewModel = new TraineeCouresesViewModels()
+            {
+                Courses = courses,
+                Trainees = trainees
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult RemoveTrainee(TraineeCouresesViewModels model)
+        {
+            var trainees = _context.TraineeCourses
+                .SingleOrDefault(t => t.CourseId == model.Courseid && t.TraineeId == model.TraineeId);
+            if (trainees == null)
+            {
+                return HttpNotFound();
+            }
+            _context.TraineeCourses.Remove(trainees);
+            _context.SaveChanges();
+
+            return RedirectToAction("CourseTrainee", "Courses");
         }
     }
 }

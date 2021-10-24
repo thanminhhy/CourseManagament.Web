@@ -1,13 +1,13 @@
-﻿@model IEnumerable<CourseManagament.Web.ViewModels.CoursetTrainersViewModels>
+﻿@model IEnumerable<CourseManagament.Web.ViewModels.CourseTraineesViewModels>
 @{
-    ViewBag.Title = "CourseTrainer";
+    ViewBag.Title = "CourseTrainee";
 }
 
-<h2>Trainers In Courses</h2>
+<h2>Trainees in A Course</h2>
 <div class="form-group">
     <td>
-        @Html.ActionLink("Add Trainer to Course", "AddTrainer", "Courses", new { @class = "btn btn-primary" })
-        @Html.ActionLink("Remove Trainer from A Course", "RemoveTrainer", "Courses", new { @class = "btn btn-danger" })
+        @Html.ActionLink("Add Trainee to Course", "AddTrainee", "Courses", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Remove Trainee from A Course", "RemoveTrainee", "Courses", new { @class = "btn btn-danger" })
         @Html.ActionLink("Back To Course Management", "Index", "Courses", new { @class = "btn btn-default" })
     </td>
 </div>
@@ -21,8 +21,8 @@
     <thead>
         <tr>
             <th scope="col">Course Name</th>
-            <th scope="col">Trainers</th>
-     </tr>
+            <th scope="col">Trainees</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -31,7 +31,7 @@
                 <td>@item.Course.CourseName</td>
                 <td>
                     <ul>
-                        @foreach (var user in item.Trainers)
+                        @foreach (var user in item.Trainees)
                         {
                             <li>@user.FullName</li>
                         }

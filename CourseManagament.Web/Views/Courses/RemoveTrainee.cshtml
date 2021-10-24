@@ -1,0 +1,25 @@
+﻿@model CourseManagament.Web.ViewModels.TraineeCouresesViewModels
+@{
+    ViewBag.Title = "RemoveTrainee";
+}
+
+<h2>Remove Trainee from A Course</h2>
+@using (Html.BeginForm("RemoveTrainee", "Courses", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label>Course Name</label>
+        @Html.DropDownListFor(m => m.Courseid,
+            new SelectList(Model.Courses, "Id", "CourseName"),
+            new { @class = "form-control" }
+        )
+    </div>
+    <div class="form-group">
+        <label></label>
+        @Html.DropDownListFor(m => m.TraineeId,
+             new SelectList(Model.Trainees, "TraineeId", "FullName"),
+             new { @class = "form-control" }
+         )
+    </div>
+    <button type="submit" class="btn btn-primary">Delete Trainee</button>
+}

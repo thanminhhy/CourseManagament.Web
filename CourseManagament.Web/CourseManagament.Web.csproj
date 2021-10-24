@@ -221,7 +221,9 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Role.cs" />
     <Compile Include="ViewModels\CourseCategoriesViewModels.cs" />
+    <Compile Include="ViewModels\CourseTraineesViewModels.cs" />
     <Compile Include="ViewModels\CoursetTrainersViewModels.cs" />
+    <Compile Include="ViewModels\TraineeCouresesViewModels.cs" />
     <Compile Include="ViewModels\TrainerCoursesViewModels.cs" />
     <Compile Include="ViewModels\TraineeUserViewModels.cs" />
     <Compile Include="ViewModels\TrainerUserViewModels.cs" />
@@ -301,6 +303,9 @@
     <Content Include="Views\Courses\AddTrainer.cshtml" />
     <Content Include="Views\Courses\CourseTrainer.cshtml" />
     <Content Include="Views\Courses\RemoveTrainer.cshtml" />
+    <Content Include="Views\Courses\CourseTrainee.cshtml" />
+    <Content Include="Views\Courses\AddTrainee.cshtml" />
+    <Content Include="Views\Courses\RemoveTrainee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
