@@ -201,12 +201,17 @@
     <Compile Include="Migrations\202110231523011_Update.Designer.cs">
       <DependentUpon>202110231523011_Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110240126431_AddTableTraineeCourses.cs" />
+    <Compile Include="Migrations\202110240126431_AddTableTraineeCourses.Designer.cs">
+      <DependentUpon>202110240126431_AddTableTraineeCourses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\TraineeCourse.cs" />
     <Compile Include="Models\TrainerCourse.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Trainee.cs" />
@@ -332,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110231523011_Update.resx">
       <DependentUpon>202110231523011_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110240126431_AddTableTraineeCourses.resx">
+      <DependentUpon>202110240126431_AddTableTraineeCourses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
