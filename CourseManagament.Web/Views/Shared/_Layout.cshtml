@@ -18,22 +18,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("FPT Web Management", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if(User.IsInRole(Role.Admin))
+                        if (User.IsInRole(Role.Admin))
                         {
-                            <li>@Html.ActionLink("Manage TrainingStaff","IndexStaff","Admin")</li>
-                            <li>@Html.ActionLink("Manage Trainer","IndexTrainer","Admin")</li>
+                            <li>@Html.ActionLink("Manage TrainingStaff", "IndexStaff", "Admin")</li>
+                            <li>@Html.ActionLink("Manage Trainer", "IndexTrainer", "Admin")</li>
                         }
-                        if(User.IsInRole(Role.TrainingStaff))
+                        if (User.IsInRole(Role.TrainingStaff))
                         {
-                            <li>@Html.ActionLink("Manage Trainee","IndexTrainee","TrainingStaffs")</li>
-                            <li>@Html.ActionLink("Manage Course","Index","TrainingStaffs")</li>
+                            <li>@Html.ActionLink("Manage Trainee", "IndexTrainee", "TrainingStaffs")</li>
+                            <li>@Html.ActionLink("Manage Course", "Index", "Courses")</li>
+                            <li>@Html.ActionLink("Course Category", "Index", "Categories")</li>
+                            <li>@Html.ActionLink("Trainers In A Course", "CourseTrainer", "Courses")</li>
+                            <li>@Html.ActionLink("Trainees In A Course", "CourseTrainee", "Courses")</li>
                         }
                     }
                 </ul>

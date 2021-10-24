@@ -10,6 +10,7 @@ using CourseManagament.Web.Utils;
 
 namespace CourseManagament.Web.Controllers
 {
+    [Authorize(Roles = Role.TrainingStaff)]
     public class CoursesController : Controller
     {
         private ApplicationDbContext _context;
