@@ -6,7 +6,7 @@ using System.Web;
 
 namespace CourseManagament.Web.ViewModels
 {
-    public class CourseTrainerViewModels
+    public class TrainerCoursesViewModels
     {
         public int CourseId { get; set; }
         public List<Course> Courses { get; set; }

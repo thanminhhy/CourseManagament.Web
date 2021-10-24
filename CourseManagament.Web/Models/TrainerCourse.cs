@@ -7,7 +7,7 @@ using System.Web;
 
 namespace CourseManagament.Web.Models
 {
-    public class CourseTrainer
+    public class TrainerCourse
     {
         [Key, Column(Order = 1)]
         [ForeignKey("Course")]

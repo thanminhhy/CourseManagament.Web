@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CourseManagament.Web.ViewModels.CoursetTrainersViewModels>
+@{
+    ViewBag.Title = "CourseTrainer";
+}
+
+<h2>Trainers In Courses</h2>
+<div class="form-group">
+    <td>
+        @Html.ActionLink("Add Trainer to Course", "AddTrainer", "Courses", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Remove Trainer", "RemoveTrainer", "Courses", new { @class = "btn btn-danger" })
+        @Html.ActionLink("Back To Course Management", "Index", "Courses", new { @class = "btn btn-default" })
+    </td>
+</div>
+<form>
+    <div class=" form-group">
+        <input type="text" class=" form-control" placeholder="Search Trainers By Enrolled Course" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Course Name</th>
+            <th scope="col">Trainers</th>
+     </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Course.CourseName</td>
+                <td>
+                    <ul>
+                        @foreach (var user in item.Trainers)
+                        {
+                            <li>@user.FullName</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
