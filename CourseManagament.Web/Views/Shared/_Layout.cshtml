@@ -42,6 +42,11 @@
                             <li>@Html.ActionLink("My Profile", "Index", "Trainers")</li>
                             <li>@Html.ActionLink("Assigned Course", "AssignedCourse", "Trainers")</li>
                         }
+                        if (User.IsInRole(Role.Trainee))
+                        {
+                            <li>@Html.ActionLink("My Profile", "Index", "Trainees")</li>
+                            <li>@Html.ActionLink("Assigned Course", "AssignedCourse", "Trainees")</li>
+                        }
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

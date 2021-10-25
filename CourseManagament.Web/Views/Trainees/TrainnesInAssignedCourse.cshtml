@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "TrainnesInAssignedCourse";
+}
+
+<h2>TrainnesInAssignedCourse</h2>
+@foreach (var item in Model)
+{
+    <ul>
+        @foreach (var user in item.Trainees)
+        {
+            <li>@user.FullName</li>
+        }
+    </ul>
+}

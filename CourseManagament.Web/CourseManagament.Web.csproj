@@ -313,10 +313,12 @@
     <Content Include="Views\Trainers\Edit.cshtml" />
     <Content Include="Views\Trainers\AssignedCourse.cshtml" />
     <Content Include="Views\Trainers\TrainnesInAssignedCourse.cshtml" />
+    <Content Include="Views\Trainees\Index.cshtml" />
+    <Content Include="Views\Trainees\AssignedCourse.cshtml" />
+    <Content Include="Views\Trainees\TrainnesInAssignedCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Trainees\" />
     <Folder Include="Views\Trainee\" />
   </ItemGroup>
   <ItemGroup>
