@@ -173,6 +173,8 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TraineesController.cs" />
+    <Compile Include="Controllers\TrainersController.cs" />
     <Compile Include="Controllers\TrainingStaffsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +226,7 @@
     <Compile Include="ViewModels\CourseTraineesViewModels.cs" />
     <Compile Include="ViewModels\CoursetTrainersViewModels.cs" />
     <Compile Include="ViewModels\TraineeCouresesViewModels.cs" />
+    <Compile Include="ViewModels\TrainerAssignedCoursesViewModels.cs" />
     <Compile Include="ViewModels\TrainerCoursesViewModels.cs" />
     <Compile Include="ViewModels\TraineeUserViewModels.cs" />
     <Compile Include="ViewModels\TrainerUserViewModels.cs" />
@@ -306,9 +309,14 @@
     <Content Include="Views\Courses\CourseTrainee.cshtml" />
     <Content Include="Views\Courses\AddTrainee.cshtml" />
     <Content Include="Views\Courses\RemoveTrainee.cshtml" />
+    <Content Include="Views\Trainers\Index.cshtml" />
+    <Content Include="Views\Trainers\Edit.cshtml" />
+    <Content Include="Views\Trainers\AssignedCourse.cshtml" />
+    <Content Include="Views\Trainers\TrainnesInAssignedCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Trainees\" />
     <Folder Include="Views\Trainee\" />
   </ItemGroup>
   <ItemGroup>

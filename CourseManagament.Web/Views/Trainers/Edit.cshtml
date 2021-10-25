@@ -1,0 +1,49 @@
+﻿@model CourseManagament.Web.Models.Trainer
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit My Profile</h2>
+@using (Html.BeginForm("Edit", "Trainers", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.TrainerId) // solve the error HTTP Error 404.0 - Not Found
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FullName, "",
+             new { @class = "text-danger" }
+             )
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.DateOfBirth, "", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.DateOfBirth, "",
+              new { @class = "text-danger" }
+            )
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Address, "",
+              new { @class = "text-danger" }
+            )
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Speciality, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Speciality, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Speciality, "",
+              new { @class = "text-danger" }
+            )
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
+}

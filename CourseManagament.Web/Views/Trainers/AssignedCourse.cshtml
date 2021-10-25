@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CourseManagament.Web.Models.Course>
+@{
+    ViewBag.Title = "AssignedCourse";
+}
+
+<h2>Courses Which Trainer Assigned to</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Courses</th>
+            <th scope="col">Course Category</th>
+            <th scope="col">Started Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.CourseName, "TrainnesInAssignedCourse", new { id = item.Id})</td>
+                <td>@item.Category.CategoryName</td>
+                <td>@item.DateTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
