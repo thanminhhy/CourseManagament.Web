@@ -58,6 +58,17 @@ namespace CourseManagament.Web.Controllers
                 };
                 return View(viewModel);
             }
+            Boolean ExistCourse = _context.Courses.Any(i => i.DateTime == model.Course.DateTime);
+            if (ExistCourse == true)
+            {
+                ModelState.AddModelError("", "Course Already Exists.");
+                var viewModel = new CourseCategoriesViewModels()
+                {
+                    Course = model.Course,
+                    Categories = _context.courseCategories.ToList()
+                };
+                return View(viewModel);
+            }
             var newCourse = new Course()
             {
                 CourseName = model.Course.CourseName,
@@ -178,6 +189,7 @@ namespace CourseManagament.Web.Controllers
             Boolean ExistTrainer = _context.CourseTrainers.Any(i => i.TrainerId == model.TrainerId && i.CourseId == model.CourseId);
             if (ExistTrainer == true)
             {
+                ModelState.AddModelError("", "Trainer Already Exists.");
                 return View(viewModel);
             }
             var newmodel = new TrainerCourse()
@@ -278,6 +290,7 @@ namespace CourseManagament.Web.Controllers
             Boolean ExistTrainee = _context.TraineeCourses.Any(i => i.TraineeId == model.TraineeId && i.CourseId == model.Courseid);
             if(ExistTrainee == true)
             {
+                ModelState.AddModelError("", "Trainee Already Exists.");
                 return View(viewModel);
             }
             var newTrainee = new TraineeCourse()
