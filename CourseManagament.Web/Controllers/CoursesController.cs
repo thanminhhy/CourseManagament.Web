@@ -49,24 +49,19 @@ namespace CourseManagament.Web.Controllers
         [HttpPost]
         public ActionResult CreateCourse(CourseCategoriesViewModels model)
         {
+            var viewModel = new CourseCategoriesViewModels()
+            {
+                Course = model.Course,
+                Categories = _context.courseCategories.ToList()
+            };
             if (!ModelState.IsValid)
             {
-                var viewModel = new CourseCategoriesViewModels()
-                {
-                    Course = model.Course,
-                    Categories = _context.courseCategories.ToList()
-                };
                 return View(viewModel);
             }
             Boolean ExistCourse = _context.Courses.Any(i => i.DateTime == model.Course.DateTime);
             if (ExistCourse == true)
             {
                 ModelState.AddModelError("", "Course Already Exists.");
-                var viewModel = new CourseCategoriesViewModels()
-                {
-                    Course = model.Course,
-                    Categories = _context.courseCategories.ToList()
-                };
                 return View(viewModel);
             }
             var newCourse = new Course()
