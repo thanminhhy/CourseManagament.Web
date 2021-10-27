@@ -2,6 +2,7 @@
 using CourseManagament.Web.Utils;
 using CourseManagament.Web.ViewModels;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,7 @@ namespace CourseManagament.Web.Controllers
         {
             var staffInUserDb = _context.Users.SingleOrDefault(t => t.Id == id);
             var staffInTrainingStaffDb = _context.TrainingStaffs.SingleOrDefault(t => t.TrainingStaffId == id);
-            if(staffInUserDb == null || staffInTrainingStaffDb == null)
+            if (staffInUserDb == null || staffInTrainingStaffDb == null)
             {
                 return HttpNotFound();
             }
@@ -112,7 +113,7 @@ namespace CourseManagament.Web.Controllers
         public ActionResult EditStaff(string id)
         {
             var staffInDb = _context.TrainingStaffs.SingleOrDefault(t => t.TrainingStaffId == id);
-            if(staffInDb == null)
+            if (staffInDb == null)
             {
                 return HttpNotFound();
             }
@@ -126,7 +127,7 @@ namespace CourseManagament.Web.Controllers
                 return View(trainingStaff);
             }
             var staffInDb = _context.TrainingStaffs.SingleOrDefault(t => t.TrainingStaffId == trainingStaff.TrainingStaffId);
-            if(staffInDb == null)
+            if (staffInDb == null)
             {
                 return HttpNotFound();
             }
@@ -134,9 +135,43 @@ namespace CourseManagament.Web.Controllers
             staffInDb.Address = trainingStaff.Address;
             staffInDb.DateOfBirth = trainingStaff.DateOfBirth;
             _context.SaveChanges();
-            return RedirectToAction("IndexStaff","Admin");
+            return RedirectToAction("IndexStaff", "Admin");
         }
 
+        [HttpGet]
+        public ActionResult ChangeStaffPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangeStaffPassword(ChangePassWordViewModels model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var userInDb = _context.Users.SingleOrDefault(u => u.Id == model.Id);
+            if(userInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            userId = userInDb.Id;
+            if(userId != null)
+            {
+                UserManager<IdentityUser> userManager =
+                new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+
+                userManager.RemovePassword(userId);
+
+                userManager.AddPassword(userId, model.Password);
+                _context.SaveChanges();
+
+                return RedirectToAction("IndexStaff", "Admin");
+            }
+            return View(model);
+        }
 
         [HttpGet]
         public ActionResult IndexTrainer()
@@ -175,7 +210,7 @@ namespace CourseManagament.Web.Controllers
                     _context.Trainers.Add(newTrainer);
                     _context.SaveChanges();
 
-                   
+
                     return RedirectToAction("IndexTrainer", "Admin");
                 }
                 AddErrors(result);
@@ -224,6 +259,46 @@ namespace CourseManagament.Web.Controllers
             trainerInDb.Speciality = trainer.Speciality;
             _context.SaveChanges();
             return RedirectToAction("IndexTrainer", "Admin");
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ChangeTrainerPassWord()
+        {
+            return View();
+        }
+        
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeTrainerPassword(ChangePassWordViewModels model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var userInDb = _context.Users.SingleOrDefault(u => u.Id == model.Id);
+            if(userInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var userId = User.Identity.GetUserId();
+            userId = userInDb.Id;
+            if (userId != null)
+            {
+                UserManager<IdentityUser> userManager =
+                new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+
+                userManager.RemovePassword(userId);
+
+                userManager.AddPassword(userId, model.Password);
+                _context.SaveChanges();
+
+                return RedirectToAction("IndexTrainer", "Admin");
+            }
+
+            return View(model);
         }
     }
 }
