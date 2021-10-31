@@ -38,6 +38,12 @@ namespace CourseManagament.Web.Controllers
             {
                 return View(courseCategory);
             }
+            Boolean ExistCategory= _context.courseCategories.Any(i => i.CategoryName == courseCategory.CategoryName);
+            if (ExistCategory == true)
+            {
+                ModelState.AddModelError("", "Course Already Exists.");
+                return View(courseCategory);
+            }
             var newCategory = new Category()
             {
                 CategoryName = courseCategory.CategoryName
