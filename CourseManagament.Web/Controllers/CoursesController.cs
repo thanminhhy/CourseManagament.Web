@@ -58,7 +58,7 @@ namespace CourseManagament.Web.Controllers
             {
                 return View(viewModel);
             }
-            Boolean ExistCourse = _context.Courses.Any(i => i.DateTime == model.Course.DateTime);
+            Boolean ExistCourse = _context.Courses.Any(i => i.CourseName == model.Course.CourseName);
             if (ExistCourse == true)
             {
                 ModelState.AddModelError("", "Course Already Exists.");
@@ -222,12 +222,27 @@ namespace CourseManagament.Web.Controllers
         public ActionResult RemoveTrainer(TrainerCoursesViewModels model)
         {
             var trainers = _context.CourseTrainers
-                .SingleOrDefault(t => t.CourseId == model.CourseId);
-            if (trainers == null)
+                .Select(t => t.Trainer)
+                .Distinct()
+                .ToList();
+            var courses = _context.CourseTrainers
+                .Select(t => t.Course)
+                .Distinct()
+                .ToList();
+
+            var viewModel = new TrainerCoursesViewModels()
             {
-                return HttpNotFound();
+                Courses = courses,
+                Trainers = trainers
+            };
+            var rmtrainers = _context.CourseTrainers
+                .SingleOrDefault(t => t.CourseId == model.CourseId && t.TrainerId ==model.TrainerId);
+            if (rmtrainers == null)
+            {
+                ModelState.AddModelError("", "Trainer does not exist in this course.");
+                return View(viewModel);
             }
-            _context.CourseTrainers.Remove(trainers);
+            _context.CourseTrainers.Remove(rmtrainers);
             _context.SaveChanges();
 
             return RedirectToAction("CourseTrainer", "Courses");
@@ -323,12 +338,27 @@ namespace CourseManagament.Web.Controllers
         public ActionResult RemoveTrainee(TraineeCouresesViewModels model)
         {
             var trainees = _context.TraineeCourses
-                .SingleOrDefault(t => t.CourseId == model.Courseid && t.TraineeId == model.TraineeId);
-            if (trainees == null)
+                .Select(t => t.Trainee)
+                .Distinct()
+                .ToList();
+            var courses = _context.TraineeCourses
+                .Select(t => t.Course)
+                .Distinct()
+                .ToList();
+
+            var viewModel = new TraineeCouresesViewModels()
             {
-                return HttpNotFound();
+                Courses = courses,
+                Trainees = trainees
+            };
+            var rmtrainees = _context.TraineeCourses
+                .SingleOrDefault(t => t.CourseId == model.Courseid && t.TraineeId == model.TraineeId);
+            if (rmtrainees == null)
+            {
+                ModelState.AddModelError("", "Trainee does not exist in this course.");
+                return View(viewModel);
             }
-            _context.TraineeCourses.Remove(trainees);
+            _context.TraineeCourses.Remove(rmtrainees);
             _context.SaveChanges();
 
             return RedirectToAction("CourseTrainee", "Courses");

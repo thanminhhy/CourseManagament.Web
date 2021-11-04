@@ -156,8 +156,7 @@ namespace CourseManagament.Web.Controllers
             {
                 return HttpNotFound();
             }
-            var userId = User.Identity.GetUserId();
-            userId = userInDb.Id;
+            var userId = userInDb.Id;
             if(userId != null)
             {
                 UserManager<IdentityUser> userManager =
@@ -283,8 +282,7 @@ namespace CourseManagament.Web.Controllers
             {
                 return HttpNotFound();
             }
-            var userId = User.Identity.GetUserId();
-            userId = userInDb.Id;
+            var userId = userInDb.Id;
             if (userId != null)
             {
                 UserManager<IdentityUser> userManager =

@@ -14,7 +14,7 @@ namespace CourseManagament.Web.Models
         public DbSet<TrainerCourse> CourseTrainers { get; set; }
         public DbSet<TraineeCourse> TraineeCourses { get; set; }
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("GCD0805", throwIfV1Schema: false)
         {
         }
 
