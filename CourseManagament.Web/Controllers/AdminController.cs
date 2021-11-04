@@ -39,9 +39,15 @@ namespace CourseManagament.Web.Controllers
         }
         // GET: Admin
         [HttpGet]
-        public ActionResult IndexStaff()
+        public ActionResult IndexStaff(string searchString)
         {
             var trainingstaff = _context.TrainingStaffs.ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                trainingstaff = trainingstaff
+                    .Where(t => t.FullName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+            }
             return View(trainingstaff);
         }
         [HttpGet]
@@ -173,9 +179,15 @@ namespace CourseManagament.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult IndexTrainer()
+        public ActionResult IndexTrainer(string searchString)
         {
             var trainer = _context.Trainers.ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                trainer = trainer
+                    .Where(t => t.FullName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+            }
             return View(trainer);
         }
         [HttpGet]
